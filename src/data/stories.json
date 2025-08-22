@@ -1,0 +1,124 @@
+{
+  "stories": [
+    {
+      "id": 1,
+      "title": "Địa Cầu Tận Thế",
+      "author": "Tuyết Li",
+      "genre": "Science Fiction (Sci-Fi)",
+      "pdfUrl": "/pdf/dia-cau-tan-the.pdf",
+      "viewCount": 150,
+      "commentCount": 3,
+      "coverImage": "/assets/img/dia-cau-tan-the-tuyet-li.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Lục Lạc Nhỏ",
+      "author": "Nhóm Paradoxical",
+      "genre": "Romance",
+      "pdfUrl": "/pdf/luc-lac-nho.pdf",
+      "viewCount": 80,
+      "commentCount": 1,
+      "coverImage": "/assets/img/luc-lac-nho-paradoxical.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Thời Niên Thiếu của Sherlock Holmes - Đám Mây Chết",
+      "author": "Andrew Lane",
+      "genre": "Detective / Mystery",
+      "pdfUrl": "/pdf/dam-may-chet.pdf",
+      "viewCount": 200,
+      "commentCount": 4,
+      "coverImage": "/assets/img/dam-may-chet-andrew-lane-&-xuan-huong-(dich).jpg"
+    },
+    {
+      "id": 4,
+      "title": "14 Ngày Đẫm Máu",
+      "author": "Jeremy Bates",
+      "genre": "Horror",
+      "pdfUrl": "/pdf/14-ngay-dam-mau.pdf",
+      "viewCount": 120,
+      "commentCount": 2,
+      "coverImage": "/assets/img/14-ngay-dam-mau-jeremy-bates-&-dong-thi-tu-linh-(dich).jpg"
+    },
+    {
+      "id": 5,
+      "title": "Thế giới Atlantis",
+      "author": "A.G. Riddle",
+      "genre": "Science Fiction (Sci-Fi)",
+      "pdfUrl": "/pdf/the-gioi-atlantis.pdf",
+      "viewCount": 90,
+      "commentCount": 0,
+      "coverImage": "/assets/img/the-gioi-atlantis-a.-g.-riddle-&-xuan-yen-(dich).jpg"
+    },
+    {
+      "id": 6,
+      "title": "Samurai Trẻ Tuổi",
+      "author": "Chris Bradford",
+      "genre": "Action",
+      "pdfUrl": "/pdf/samurai-tre-tuoi.pdf",
+      "viewCount": 300,
+      "commentCount": 5,
+      "coverImage": "/assets/img/samurai-tre-tuoi-(bo-8-tap)-chris-bradford-&-hoang-huong-trang-(dich).jpg"
+    },
+    {
+      "id": 7,
+      "title": "Bà Đỡ - Tình Yêu Ngày Tận Thế",
+      "author": "Katja Kettu",
+      "genre": "Romance",
+      "pdfUrl": "/pdf/ba-do-tinh-yeu-ngay-tan-the.pdf",
+      "viewCount": 50,
+      "commentCount": 0,
+      "coverImage": "/assets/img/ba-do-–-tinh-yeu-ngay-tan-the-katja-kettu-&-bui-viet-hoa-(dich).jpg"
+    },
+    {
+      "id": 8,
+      "title": "Từ Điển Tiếng Em",
+      "author": "Khothudien",
+      "genre": "Romance",
+      "pdfUrl": "/pdf/tu-dien-tieng-em.pdf",
+      "viewCount": 180,
+      "commentCount": 3,
+      "coverImage": "/assets/img/tu-dien-tieng-em.jpg"
+    },
+    {
+      "id": 9,
+      "title": "Warcross - Thợ Săn Tiền Thưởng",
+      "author": "Marie Lu",
+      "genre": "Science Fiction (Sci-Fi)",
+      "pdfUrl": "/pdf/warcross-tho-san-tien-thuong.pdf",
+      "viewCount": 250,
+      "commentCount": 4,
+      "coverImage": "/assets/img/warcross-tho-san-tien-thuong-marie-lu-&-nhom-townh-(dich).jpg"
+    },
+    {
+      "id": 10,
+      "title": "Vỏ Bọc Hoàn Hảo",
+      "author": "Lisa Gardner",
+      "genre": "Action",
+      "pdfUrl": "/pdf/vo-boc-hoang-hao.pdf",
+      "viewCount": 110,
+      "commentCount": 2,
+      "coverImage": "/assets/img/vo-boc-hoan-hao-lisa-gardner-&-quach-cam-phuong-(dich).jpg"
+    },
+    {
+      "id": 11,
+      "title": "Những vụ án kỳ bí",
+      "author": "Điềm Bạc Lão Cư",
+      "genre": ["Detective / Mystery", "Horror"],
+      "pdfUrl": "/pdf/nhung-vu-an-ki-bi.pdf",
+      "viewCount": 160,
+      "commentCount": 3,
+      "coverImage": "/assets/img/nhung-vu-an-ky-bi-diem-bac-lao-cuu.jpg"
+    },
+    {
+      "id": 12,
+      "title": "Bà Ngoại thời @",
+      "author": "Susie Morgenstern",
+      "genre": "Comedy",
+      "pdfUrl": "/pdf/ba-ngoai-thoi-@.pdf",
+      "viewCount": 70,
+      "commentCount": 1,
+      "coverImage": "/assets/img/34552441966_2698be7192_o.jpg"
+    }
+  ]
+}

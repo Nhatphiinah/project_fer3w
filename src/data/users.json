@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "username": "john_doe",
+      "password": "john123",
+      "favorites": [1],
+      "role": "user"
+    },
+    {
+      "username": "jane_smith",
+      "password": "jane456",
+      "favorites": [2],
+      "role": "user"
+    },
+    {
+      "username": "admin_readverse",
+      "password": "admin789",
+      "favorites": [],
+      "role": "admin"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+/*
+ * Assignment create by Group 2
+ */
+.story-reader-container {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding-bottom: 50px;
+}
+
+.story-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #343a40;
+  margin-bottom: 0.5rem;
+}
+
+.story-genre {
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+.pdf-card {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.pdf-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #f1f1f1;
+}
+
+.page-info {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+.page-input {
+  width: 80px;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  transition: border-color 0.3s ease;
+}
+
+.page-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .story-title {
+    font-size: 1.8rem;
+  }
+
+  .story-genre {
+    font-size: 0.9rem;
+  }
+
+  .pdf-wrapper {
+    padding: 10px;
+  }
+
+  .page-info {
+    font-size: 0.9rem;
+  }
+
+  .page-input {
+    width: 60px;
+  }
+}

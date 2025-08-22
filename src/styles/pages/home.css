@@ -1,0 +1,99 @@
+/*
+ * Assignment create by Group 2
+ */
+.custom-carousel {
+  margin: 0 auto;
+  max-width: 1200px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #e7e5e5;
+}
+
+/* Nội dung của mỗi slide */
+.carousel-content {
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  min-height: 350px;
+}
+
+/* Cột chứa hình ảnh */
+.carousel-image-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hình ảnh bìa */
+.carousel-image {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.carousel-image:hover {
+  transform: scale(1.05);
+}
+
+.carousel-text-col {
+  padding-left: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.carousel-text-col h3 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.carousel-text-col .author {
+  font-family: "Roboto", sans-serif;
+  font-style: italic;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* Nút "Read Now" */
+.read-now-btn {
+  background: linear-gradient(90deg, #ff4d4d, #ff8787);
+  border: none;
+  padding: 8px 20px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #fff;
+  border-radius: 5px;
+  width: fit-content;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.read-now-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #ff8787, #ff4d4d);
+}
+
+.title-text {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.card {
+  background-color: #fffcfc;
+}
+
+.view-more {
+  margin-right: 75px;
+}

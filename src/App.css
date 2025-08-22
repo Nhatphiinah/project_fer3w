@@ -1,0 +1,23 @@
+/*
+ * Assignment create by Group 2
+ */
+html,
+body,
+#root,
+.App {
+  text-align: center;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.App {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
+}

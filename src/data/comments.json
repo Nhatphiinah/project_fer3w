@@ -1,0 +1,200 @@
+{
+  "comments": [
+    {
+      "id": 1,
+      "storyId": 1,
+      "username": "john_doe",
+      "content": "Cốt truyện rất hấp dẫn!",
+      "date": "2025-03-10"
+    },
+    {
+      "id": 2,
+      "storyId": 1,
+      "username": "jane_smith",
+      "content": "Kết thúc bất ngờ!",
+      "date": "2025-03-12"
+    },
+    {
+      "id": 3,
+      "storyId": 1,
+      "username": "admin_readverse",
+      "content": "Đáng đọc!",
+      "date": "2025-03-15"
+    },
+    {
+      "id": 4,
+      "storyId": 3,
+      "username": "john_doe",
+      "content": "Hành động mãn nhãn!",
+      "date": "2025-03-11"
+    },
+    {
+      "id": 5,
+      "storyId": 3,
+      "username": "jane_smith",
+      "content": "Nhiều pha gay cấn!",
+      "date": "2025-03-13"
+    },
+    {
+      "id": 6,
+      "storyId": 3,
+      "username": "admin_readverse",
+      "content": "Tuyệt vời!",
+      "date": "2025-03-14"
+    },
+    {
+      "id": 7,
+      "storyId": 3,
+      "username": "john_doe",
+      "content": "Đỉnh cao!",
+      "date": "2025-03-16"
+    },
+    {
+      "id": 8,
+      "storyId": 4,
+      "username": "jane_smith",
+      "content": "Rùng rợn quá!",
+      "date": "2025-03-09"
+    },
+    {
+      "id": 9,
+      "storyId": 4,
+      "username": "admin_readverse",
+      "content": "Hay nhưng hơi đáng sợ!",
+      "date": "2025-03-17"
+    },
+    {
+      "id": 10,
+      "storyId": 6,
+      "username": "john_doe",
+      "content": "Truyện tranh đỉnh cao!",
+      "date": "2025-03-08"
+    },
+    {
+      "id": 11,
+      "storyId": 6,
+      "username": "jane_smith",
+      "content": "Nhân vật rất cool!",
+      "date": "2025-03-10"
+    },
+    {
+      "id": 12,
+      "storyId": 6,
+      "username": "admin_readverse",
+      "content": "Thích phần chiến đấu!",
+      "date": "2025-03-11"
+    },
+    {
+      "id": 13,
+      "storyId": 6,
+      "username": "john_doe",
+      "content": "Muốn đọc tiếp!",
+      "date": "2025-03-13"
+    },
+    {
+      "id": 14,
+      "storyId": 6,
+      "username": "jane_smith",
+      "content": "Tuyệt vời!",
+      "date": "2025-03-15"
+    },
+    {
+      "id": 15,
+      "storyId": 6,
+      "username": "admin_readverse",
+      "content": "Rất cuốn!",
+      "date": "2025-03-16"
+    },
+    {
+      "id": 16,
+      "storyId": 8,
+      "username": "john_doe",
+      "content": "Tình cảm sâu sắc!",
+      "date": "2025-03-07"
+    },
+    {
+      "id": 17,
+      "storyId": 8,
+      "username": "jane_smith",
+      "content": "Lãng mạn quá!",
+      "date": "2025-03-14"
+    },
+    {
+      "id": 18,
+      "storyId": 8,
+      "username": "admin_readverse",
+      "content": "Hay!",
+      "date": "2025-03-18"
+    },
+    {
+      "id": 19,
+      "storyId": 9,
+      "username": "john_doe",
+      "content": "Công nghệ đỉnh cao!",
+      "date": "2025-03-05"
+    },
+    {
+      "id": 20,
+      "storyId": 9,
+      "username": "jane_smith",
+      "content": "Thích nhân vật chính!",
+      "date": "2025-03-06"
+    },
+    {
+      "id": 21,
+      "storyId": 9,
+      "username": "admin_readverse",
+      "content": "Cốt truyện độc đáo!",
+      "date": "2025-03-17"
+    },
+    {
+      "id": 22,
+      "storyId": 9,
+      "username": "john_doe",
+      "content": "Đỉnh!",
+      "date": "2025-03-18"
+    },
+    {
+      "id": 23,
+      "storyId": 10,
+      "username": "jane_smith",
+      "content": "Hành động gay cấn!",
+      "date": "2025-03-12"
+    },
+    {
+      "id": 24,
+      "storyId": 10,
+      "username": "admin_readverse",
+      "content": "Thích phần cuối!",
+      "date": "2025-03-13"
+    },
+    {
+      "id": 25,
+      "storyId": 11,
+      "username": "john_doe",
+      "content": "Trinh thám hay!",
+      "date": "2025-03-10"
+    },
+    {
+      "id": 26,
+      "storyId": 11,
+      "username": "jane_smith",
+      "content": "Kịch tính!",
+      "date": "2025-03-11"
+    },
+    {
+      "id": 27,
+      "storyId": 11,
+      "username": "admin_readverse",
+      "content": "Đáng xem!",
+      "date": "2025-03-12"
+    },
+    {
+      "id": 28,
+      "storyId": 12,
+      "username": "jane_smith",
+      "content": "Nhớ bà ngoại quá!",
+      "date": "2025-03-15"
+    }
+  ]
+}
