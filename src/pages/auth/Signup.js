@@ -41,10 +41,10 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      // Fetch users from API to check if username exists
-      const response = await fetch('http://localhost:5000/users');
+      // Lấy danh sách users từ API để kiểm tra username
+      const response = await fetch("http://localhost:5000/users");
       if (!response.ok) {
-        throw new Error('Failed to fetch users');
+        throw new Error("Failed to fetch users");
       }
 
       const users = await response.json();
@@ -62,13 +62,24 @@ const Signup = () => {
         password,
         email: `${username}@example.com`, // Email mặc định
         role: "user", // Vai trò mặc định là user
-        avatar: `https://via.placeholder.com/150/2196F3/FFFFFF?text=${username.charAt(0).toUpperCase()}`,
-        createdAt: new Date().toISOString().split('T')[0]
+        avatar: `https://via.placeholder.com/150/2196F3/FFFFFF?text=${username
+          .charAt(0)
+          .toUpperCase()}`,
+        createdAt: new Date().toISOString().split("T")[0],
       };
 
-      // TODO: Implement API call to create new user
-      // For now, we'll just show success message
-      console.log('New user would be created:', newUser);
+      // Gửi POST request để lưu user vào db.json
+      const createResponse = await fetch("http://localhost:5000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      if (!createResponse.ok) {
+        throw new Error("Failed to create user");
+      }
 
       // Hiển thị thông báo thành công
       setSuccess("Sign up successful! Please Login.");
@@ -78,7 +89,7 @@ const Signup = () => {
         navigate("/login");
       }, 2000);
     } catch (error) {
-      console.error('Signup error:', error);
+      console.error("Signup error:", error);
       setError("Sign up failed. Please try again.");
     } finally {
       setLoading(false);
@@ -155,16 +166,20 @@ const Signup = () => {
                 >
                   {loading ? (
                     <>
-                      <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                      <span
+                        className="spinner-border spinner-border-sm me-2"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
                       Signing up...
                     </>
                   ) : (
-                    'Sign up'
+                    "Sign up"
                   )}
                 </Button>
               </Form>
               <p className="text-center mt-3 text-muted">
-                Have an Account?
+                Have an Account?{" "}
                 <Link to={"/login"} className="text-danger">
                   Login now
                 </Link>

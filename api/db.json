@@ -173,6 +173,15 @@
       "role": "user",
       "avatar": "https://via.placeholder.com/150/2196F3/FFFFFF?text=U",
       "createdAt": "2023-01-15"
+    },
+    {
+      "id": "fc05",
+      "username": "nhatphinah",
+      "password": "123",
+      "email": "nhatphinah@example.com",
+      "role": "user",
+      "avatar": "https://via.placeholder.com/150/2196F3/FFFFFF?text=N",
+      "createdAt": "2025-08-25"
     }
   ],
   "comments": [
