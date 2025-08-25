@@ -12,13 +12,13 @@ const Footer = () => {
         <Row>
           <Col>
             <Nav className="mx-auto">
-              <Nav.Link as={Link} to="#" className="nav-link-custom">
+              <Nav.Link as={Link} to="/about" className="nav-link-custom">
                 About Us
               </Nav.Link>
-              <Nav.Link as={Link} to="#" className="nav-link-custom">
+              <Nav.Link as={Link} to="/contact" className="nav-link-custom">
                 Contact
               </Nav.Link>
-              <Nav.Link as={Link} to="#" className="nav-link-custom">
+              <Nav.Link as={Link} to="/privacy" className="nav-link-custom">
                 Privacy Policy
               </Nav.Link>
             </Nav>

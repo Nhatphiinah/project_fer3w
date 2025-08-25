@@ -7,7 +7,7 @@
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background-color: #e7e5e5;
+  background-color: #e8f4f8;
 }
 
 /* Nội dung của mỗi slide */
@@ -51,7 +51,7 @@
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 24px;
-  color: #333;
+  color: #1e3a8a;
   margin-bottom: 8px;
 }
 
@@ -59,13 +59,13 @@
   font-family: "Roboto", sans-serif;
   font-style: italic;
   font-size: 16px;
-  color: #666;
+  color: #475569;
   margin-bottom: 10px;
 }
 
 /* Nút "Read Now" */
 .read-now-btn {
-  background: linear-gradient(90deg, #ff4d4d, #ff8787);
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
   border: none;
   padding: 8px 20px;
   font-family: "Roboto", sans-serif;
@@ -79,7 +79,7 @@
 
 .read-now-btn:hover {
   transform: scale(1.05);
-  background: linear-gradient(90deg, #ff8787, #ff4d4d);
+  background: linear-gradient(90deg, #60a5fa, #3b82f6);
 }
 
 .title-text {
@@ -90,8 +90,16 @@
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
+
 .card {
-  background-color: #fffcfc;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
 }
 
 .view-more {

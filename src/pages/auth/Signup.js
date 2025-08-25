@@ -12,7 +12,6 @@ import {
   Alert,
   Card,
 } from "react-bootstrap";
-import usersData from "../../data/users.json";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -20,9 +19,10 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
@@ -37,39 +37,52 @@ const Signup = () => {
       setError("Mật khẩu xác nhận không khớp!");
       return;
     }
-    // Lấy danh sách người dùng từ localStorage (nếu có)
-    const storedUsers = localStorage.getItem("users");
-    const localUsers = storedUsers ? JSON.parse(storedUsers) : [];
 
-    // Kết hợp danh sách người dùng từ users.json và localStorage
-    const allUsers = [...usersData.users, ...localUsers];
+    setLoading(true);
 
-    // Kiểm tra xem username đã tồn tại chưa
-    const existingUser = allUsers.find((u) => u.username === username);
-    if (existingUser) {
-      setError("Username already exists! Please choose another username.");
-      return;
+    try {
+      // Fetch users from API to check if username exists
+      const response = await fetch('http://localhost:5000/users');
+      if (!response.ok) {
+        throw new Error('Failed to fetch users');
+      }
+
+      const users = await response.json();
+
+      // Kiểm tra xem username đã tồn tại chưa
+      const existingUser = users.find((u) => u.username === username);
+      if (existingUser) {
+        setError("Username already exists! Please choose another username.");
+        return;
+      }
+
+      // Tạo người dùng mới
+      const newUser = {
+        username,
+        password,
+        email: `${username}@example.com`, // Email mặc định
+        role: "user", // Vai trò mặc định là user
+        avatar: `https://via.placeholder.com/150/2196F3/FFFFFF?text=${username.charAt(0).toUpperCase()}`,
+        createdAt: new Date().toISOString().split('T')[0]
+      };
+
+      // TODO: Implement API call to create new user
+      // For now, we'll just show success message
+      console.log('New user would be created:', newUser);
+
+      // Hiển thị thông báo thành công
+      setSuccess("Sign up successful! Please Login.");
+
+      // Chuyển hướng về trang đăng nhập sau 2 giây
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    } catch (error) {
+      console.error('Signup error:', error);
+      setError("Sign up failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    // Tạo người dùng mới
-    const newUser = {
-      username,
-      password,
-      favorites: [], // Danh sách yêu thích mặc định là rỗng
-      role: "user", // Vai trò mặc định là user
-    };
-
-    // Mô phỏng lưu người dùng mới (vì không có backend)
-    const updatedUsers = [...usersData.users, newUser];
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
-
-    // Hiển thị thông báo thành công
-    setSuccess("Sign up successful! Please Login.");
-
-    // Chuyển hướng về trang đăng nhập sau 2 giây
-    setTimeout(() => {
-      navigate("/login");
-    }, 2000);
   };
 
   return (
@@ -138,8 +151,16 @@ const Signup = () => {
                   variant="outline-primary"
                   type="submit"
                   className="w-100 read-now-btn"
+                  disabled={loading}
                 >
-                  Sign up
+                  {loading ? (
+                    <>
+                      <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                      Signing up...
+                    </>
+                  ) : (
+                    'Sign up'
+                  )}
                 </Button>
               </Form>
               <p className="text-center mt-3 text-muted">

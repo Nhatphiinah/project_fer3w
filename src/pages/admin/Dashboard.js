@@ -10,20 +10,28 @@ import {
   Button,
   Form,
   Modal,
+  Nav,
+  Badge,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { AuthContext } from "../../context/AuthContext";
-import { getStories, updateStories } from "../../utils/storyService.js";
+import { getStories } from "../../utils/storyService.js";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [stories, setStories] = useState([]);
+  const [contacts, setContacts] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentStoryId, setCurrentStoryId] = useState(null);
+  const [currentContact, setCurrentContact] = useState(null);
+  const [activeTab, setActiveTab] = useState("stories");
+  const [storyLoading, setStoryLoading] = useState(false);
+  const [deletingStoryId, setDeletingStoryId] = useState(null);
   const [formData, setFormData] = useState({
     title: "",
     author: "",
@@ -35,8 +43,31 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    const storiesFromLocal = getStories();
-    setStories(storiesFromLocal);
+    const fetchData = async () => {
+      try {
+        const storiesData = await getStories();
+        setStories(storiesData);
+
+        // Fetch contacts
+        console.log('Fetching contacts from: http://localhost:5000/contacts');
+        const contactsResponse = await fetch('http://localhost:5000/contacts');
+        console.log('Contacts response status:', contactsResponse.status);
+        console.log('Contacts response ok:', contactsResponse.ok);
+
+        if (contactsResponse.ok) {
+          const contactsData = await contactsResponse.json();
+          console.log('Contacts data:', contactsData);
+          setContacts(contactsData);
+        } else {
+          const errorText = await contactsResponse.text();
+          console.error('Failed to fetch contacts:', contactsResponse.status, contactsResponse.statusText, errorText);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleInputChange = (e) => {
@@ -68,50 +99,105 @@ const Dashboard = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setStoryLoading(true);
 
-    const newStory = {
-      ...formData,
-      id: isEditing
-        ? currentStoryId
-        : stories.length > 0
-        ? Math.max(...stories.map((s) => s.id)) + 1
-        : 1,
-      viewCount: isEditing ? formData.viewCount : 0,
-      commentCount: isEditing ? formData.commentCount : 0,
-    };
+    try {
+      const storyData = {
+        ...formData,
+        viewCount: isEditing ? formData.viewCount : 0,
+        commentCount: isEditing ? formData.commentCount : 0,
+      };
 
-    let updatedStories;
-    if (isEditing) {
-      updatedStories = stories.map((story) =>
-        story.id === currentStoryId ? newStory : story
-      );
-    } else {
-      updatedStories = [...stories, newStory];
+      // Nếu đang edit và không có file mới, giữ nguyên giá trị cũ
+      if (isEditing) {
+        const currentStory = stories.find(s => s.id === currentStoryId);
+        if (currentStory) {
+          if (!formData.coverImage || formData.coverImage === '') {
+            storyData.coverImage = currentStory.coverImage;
+          }
+          if (!formData.pdfUrl || formData.pdfUrl === '') {
+            storyData.pdfUrl = currentStory.pdfUrl;
+          }
+        }
+      }
+
+      let response;
+      if (isEditing) {
+        // Update existing story
+        console.log('Updating story with ID:', currentStoryId);
+        console.log('Story data to update:', storyData);
+        response = await fetch(`http://localhost:5000/stories/${currentStoryId}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(storyData),
+        });
+      } else {
+        // Create new story
+        console.log('Creating new story');
+        console.log('Story data to create:', storyData);
+        response = await fetch('http://localhost:5000/stories', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(storyData),
+        });
+      }
+
+      console.log('Response status:', response.status);
+      console.log('Response ok:', response.ok);
+
+      if (response.ok) {
+        const savedStory = await response.json();
+        console.log('Saved story response:', savedStory);
+
+        if (isEditing) {
+          // Update local state for editing
+          const updatedStories = stories.map((story) =>
+            story.id === currentStoryId ? savedStory : story
+          );
+          setStories(updatedStories);
+        } else {
+          // Add new story to local state
+          setStories([...stories, savedStory]);
+        }
+
+        setShowModal(false);
+        setIsEditing(false);
+        setCurrentStoryId(null);
+        setFormData({
+          title: "",
+          author: "",
+          genre: "",
+          coverImage: "",
+          pdfUrl: "",
+          viewCount: 0,
+          commentCount: 0,
+        });
+
+        alert(isEditing ? 'Story updated successfully!' : 'Story added successfully!');
+      } else {
+        const errorText = await response.text();
+        console.error('API Error Response:', response.status, response.statusText, errorText);
+        throw new Error(`Failed to ${isEditing ? 'update' : 'add'} story: ${response.status} ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Error saving story:', error);
+      alert(`Failed to ${isEditing ? 'update' : 'add'} story. Please try again.`);
+    } finally {
+      setStoryLoading(false);
     }
-
-    setStories(updatedStories);
-    updateStories(updatedStories);
-
-    setShowModal(false);
-    setIsEditing(false);
-    setCurrentStoryId(null);
-    setFormData({
-      title: "",
-      author: "",
-      genre: "",
-      coverImage: "",
-      pdfUrl: "",
-      viewCount: 0,
-      commentCount: 0,
-    });
   };
 
   const handleEdit = (story) => {
+    console.log('Editing story:', story);
     setIsEditing(true);
     setCurrentStoryId(story.id);
-    setFormData({
+    const editData = {
       title: story.title,
       author: story.author,
       genre: story.genre,
@@ -119,17 +205,47 @@ const Dashboard = () => {
       pdfUrl: story.pdfUrl || "",
       viewCount: story.viewCount,
       commentCount: story.commentCount,
-    });
+    };
+    console.log('Setting form data:', editData);
+    setFormData(editData);
     setShowModal(true);
   };
 
-  const handleDelete = (storyId) => {
+  const handleDelete = async (storyId) => {
     if (window.confirm("Are you sure you want to delete this story?")) {
-      const updatedStories = stories.filter((story) => story.id !== storyId);
-      setStories(updatedStories);
-      updateStories(updatedStories);
+      setDeletingStoryId(storyId);
+      try {
+        const response = await fetch(`http://localhost:5000/stories/${storyId}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          const updatedStories = stories.filter((story) => story.id !== storyId);
+          setStories(updatedStories);
+          alert('Story deleted successfully!');
+        } else {
+          throw new Error('Failed to delete story');
+        }
+      } catch (error) {
+        console.error('Error deleting story:', error);
+        alert('Failed to delete story. Please try again.');
+      } finally {
+        setDeletingStoryId(null);
+      }
     }
   };
+
+  const handleViewContact = (contact) => {
+    console.log('View contact clicked:', contact);
+    setCurrentContact(contact);
+    setShowContactModal(true);
+  };
+
+
+
+
+
+
 
   if (!user) {
     return (
@@ -170,78 +286,146 @@ const Dashboard = () => {
       <Row className="justify-content-center pt-3 mb-3">
         <Col>
           <h2 className="text-danger opacity-75 text-center">
-            Dashboard - Manage Stories
+            Dashboard - Admin Panel
           </h2>
         </Col>
       </Row>
+
       <Row className="justify-content-center">
         <Col md={10}>
-          <div className="d-flex justify-content-end mb-3">
-            <Button
-              variant="primary"
-              onClick={() => {
-                setIsEditing(false);
-                setFormData({
-                  title: "",
-                  author: "",
-                  genre: "",
-                  coverImage: "",
-                  pdfUrl: "",
-                  viewCount: 0,
-                  commentCount: 0,
-                });
-                setShowModal(true);
-              }}
-              className="read-now-btn text-white"
-            >
-              Add Story
-            </Button>
-          </div>
+          <Nav variant="tabs" className="mb-4" activeKey={activeTab} onSelect={(k) => setActiveTab(k)}>
+            <Nav.Item>
+              <Nav.Link eventKey="stories">Stories Management</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="contacts">
+                Contact Forms
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
 
-          {stories.length === 0 ? (
-            <p className="text-center text-muted">No stories available.</p>
-          ) : (
-            <Table striped bordered hover responsive className="shadow-sm">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Title</th>
-                  <th>Author</th>
-                  <th>Genre</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {stories.map((story) => (
-                  <tr key={story.id}>
-                    <td>{story.id}</td>
-                    <td>{story.title}</td>
-                    <td>{story.author}</td>
-                    <td>{story.genre}</td>
-                    <td>
-                      <Button
-                        variant="outline-primary"
-                        size="sm"
-                        onClick={() => handleEdit(story)}
-                        className="me-2"
-                      >
-                        <FaEdit />
-                      </Button>
-                      <Button
-                        variant="outline-danger"
-                        size="sm"
-                        onClick={() => handleDelete(story.id)}
-                      >
-                        <FaTrash />
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+          {activeTab === "stories" && (
+            <>
+              <div className="d-flex justify-content-end mb-3">
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    setIsEditing(false);
+                    setFormData({
+                      title: "",
+                      author: "",
+                      genre: "",
+                      coverImage: "",
+                      pdfUrl: "",
+                      viewCount: 0,
+                      commentCount: 0,
+                    });
+                    setShowModal(true);
+                  }}
+                  className="read-now-btn text-white"
+                >
+                  Add Story
+                </Button>
+              </div>
+
+              {stories.length === 0 ? (
+                <p className="text-center text-muted">No stories available.</p>
+              ) : (
+                <Table striped bordered hover responsive className="shadow-sm">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Title</th>
+                      <th>Author</th>
+                      <th>Genre</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {stories.map((story) => (
+                      <tr key={story.id}>
+                        <td>{story.id}</td>
+                        <td>{story.title}</td>
+                        <td>{story.author}</td>
+                        <td>{story.genre}</td>
+                        <td>
+                          <Button
+                            variant="outline-primary"
+                            size="sm"
+                            onClick={() => handleEdit(story)}
+                            className="me-2"
+                          >
+                            <FaEdit />
+                          </Button>
+                          <Button
+                            variant="outline-danger"
+                            size="sm"
+                            onClick={() => handleDelete(story.id)}
+                            disabled={deletingStoryId === story.id}
+                          >
+                            {deletingStoryId === story.id ? (
+                              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            ) : (
+                              <FaTrash />
+                            )}
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              )}
+            </>
           )}
 
-          <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+          {activeTab === "contacts" && (
+            <>
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                <h5>Contact Forms ({contacts.length})</h5>
+              </div>
+
+              {contacts.length === 0 ? (
+                <p className="text-center text-muted">No contact forms available.</p>
+              ) : (
+                <Table striped bordered hover responsive className="shadow-sm">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Subject</th>
+                      <th>Date</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {contacts.map((contact) => (
+                      <tr key={contact.id}>
+                        <td>{contact.id}</td>
+                        <td>{contact.name}</td>
+                        <td>{contact.email}</td>
+                        <td>{contact.subject}</td>
+                        <td>{new Date(contact.createdAt).toLocaleDateString()}</td>
+                        <td>
+                          <Button
+                            variant="outline-info"
+                            size="sm"
+                            onClick={() => handleViewContact(contact)}
+                            title="View Contact Details"
+                          >
+                            <FaEye /> View
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              )}
+            </>
+          )}
+
+          {/* Story Modal */}
+          <Modal show={showModal} onHide={() => setShowModal(false)} centered size="lg">
             <Modal.Header closeButton className="border-0">
               <Modal.Title className="text-danger opacity-75">
                 {isEditing ? "Edit Story" : "Add Story"}
@@ -280,12 +464,11 @@ const Dashboard = () => {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formCoverImageFile">
-                  <Form.Label>Select Cover Image</Form.Label>
+                  <Form.Label>Select Cover Image {isEditing && formData.coverImage && '(Optional - keep current)'}</Form.Label>
                   <Form.Control
                     type="file"
                     accept="image/*"
                     onChange={handleCoverImageChange}
-                    required={!isEditing || !formData.coverImage}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formCoverImage">
@@ -300,12 +483,11 @@ const Dashboard = () => {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formPdfFile">
-                  <Form.Label>Select PDF File</Form.Label>
+                  <Form.Label>Select PDF File {isEditing && formData.pdfUrl && '(Optional - keep current)'}</Form.Label>
                   <Form.Control
                     type="file"
                     accept="application/pdf"
                     onChange={handlePdfFileChange}
-                    required={!isEditing || !formData.pdfUrl}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formPdfUrl">
@@ -323,10 +505,47 @@ const Dashboard = () => {
                   variant="primary"
                   type="submit"
                   className="read-now-btn text-white"
+                  disabled={storyLoading}
                 >
-                  {isEditing ? "Update" : "Add"}
+                  {storyLoading ? (
+                    <>
+                      <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                      {isEditing ? "Updating..." : "Adding..."}
+                    </>
+                  ) : (
+                    isEditing ? "Update" : "Add"
+                  )}
                 </Button>
               </Form>
+            </Modal.Body>
+          </Modal>
+
+          {/* Contact Detail Modal */}
+          <Modal show={showContactModal} onHide={() => setShowContactModal(false)} centered size="lg">
+            <Modal.Header closeButton className="border-0">
+              <Modal.Title className="text-danger opacity-75">
+                Contact Details
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {currentContact && (
+                <div>
+                  <Row>
+                    <Col md={6}>
+                      <p><strong>Name:</strong> {currentContact.name}</p>
+                      <p><strong>Email:</strong> {currentContact.email}</p>
+                      <p><strong>Subject:</strong> {currentContact.subject}</p>
+                      <p><strong>Date:</strong> {new Date(currentContact.createdAt).toLocaleString()}</p>
+                    </Col>
+                    <Col md={6}>
+                      <p><strong>Message:</strong></p>
+                      <div className="border p-3 bg-light rounded">
+                        {currentContact.message}
+                      </div>
+                    </Col>
+                  </Row>
+                </div>
+              )}
             </Modal.Body>
           </Modal>
         </Col>
@@ -336,3 +555,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

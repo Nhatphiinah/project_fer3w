@@ -28,19 +28,45 @@ const StoryReader = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [story, setStory] = useState(null);
   const [stories, setStories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Lấy danh sách sách từ localStorage
+  // Lấy danh sách sách từ API
   useEffect(() => {
-    const storiesFromLocal = getStories();
-    setStories(storiesFromLocal);
+    const fetchStories = async () => {
+      try {
+        const storiesFromLocal = await getStories();
+        setStories(storiesFromLocal);
 
-    const foundStory = storiesFromLocal.find(
-      (story) => story.id.toString() === id
-    );
-    if (foundStory) {
-      setStory(foundStory);
-    }
+        const foundStory = storiesFromLocal.find(
+          (story) => story.id.toString() === id
+        );
+        if (foundStory) {
+          setStory(foundStory);
+        }
+      } catch (error) {
+        console.error('Error fetching stories:', error);
+        setStories([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStories();
   }, [id]);
+
+  // Loading state
+  if (loading) {
+    return (
+      <Container className="my-5">
+        <div className="text-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <p className="mt-2">Loading story...</p>
+        </div>
+      </Container>
+    );
+  }
 
   // Kiểm tra dữ liệu stories
   if (!stories || stories.length === 0) {

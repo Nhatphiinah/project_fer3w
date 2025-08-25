@@ -48,6 +48,13 @@ const Header = () => {
             >
               All Stories
             </Nav.Link>
+            <Nav.Link
+              as={Link}
+              to="/about"
+              className="nav-link-custom"
+            >
+              About
+            </Nav.Link>
             <NavDropdown
               title="Genre"
               id="genre-dropdown"

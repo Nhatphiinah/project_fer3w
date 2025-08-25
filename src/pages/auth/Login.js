@@ -13,38 +13,47 @@ import {
   Card,
 } from "react-bootstrap";
 import { AuthContext } from "../../context/AuthContext";
-import usersData from "../../data/users.json";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
-    // Lấy danh sách người dùng từ localStorage (nếu có)
-    const storedUsers = localStorage.getItem("users");
-    const localUsers = storedUsers ? JSON.parse(storedUsers) : [];
+    try {
+      // Fetch users from API
+      const response = await fetch('http://localhost:5000/users');
+      if (!response.ok) {
+        throw new Error('Failed to fetch users');
+      }
 
-    // Kết hợp danh sách người dùng từ users.json và localStorage
-    const allUsers = [...usersData.users, ...localUsers];
+      const users = await response.json();
 
-    // Kiểm tra thông tin đăng nhập
-    const user = allUsers.find(
-      (u) => u.username === username && u.password === password
-    );
+      // Kiểm tra thông tin đăng nhập
+      const user = users.find(
+        (u) => u.username === username && u.password === password
+      );
 
-    if (user) {
-      // Đăng nhập thành công
-      login(user);
-      navigate("/");
-    } else {
-      // Đăng nhập thất bại
-      setError("Invalid username or password !");
+      if (user) {
+        // Đăng nhập thành công
+        login(user);
+        navigate("/");
+      } else {
+        // Đăng nhập thất bại
+        setError("Invalid username or password!");
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setError("Login failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -93,8 +102,16 @@ const Login = () => {
                   variant="outline-primary"
                   type="submit"
                   className="w-100 read-now-btn"
+                  disabled={loading}
                 >
-                  Sign in
+                  {loading ? (
+                    <>
+                      <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                      Signing in...
+                    </>
+                  ) : (
+                    'Sign in'
+                  )}
                 </Button>
               </Form>
               <p className="text-center mt-3 text-muted">

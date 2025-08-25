@@ -14,8 +14,9 @@ import {
 import "../../styles/pages/storylist.css";
 import { Link } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
-import { GenreContext } from "../../context/GenreContext"; // Import GenreContext
-import { getStories } from "../../utils/storyService.js";
+import { GenreContext } from "../../context/GenreContext";
+import { getStories, searchStories } from "../../utils/storyService.js";
+
 const genres = [
   "All",
   "Romance",
@@ -42,30 +43,70 @@ const removeDiacritics = (str) => {
 
 const StoryList = () => {
   const [stories, setStories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
-    const storiesFromLocal = getStories();
-    setStories(storiesFromLocal);
+    const fetchStories = async () => {
+      try {
+        const storiesData = await getStories();
+        setStories(storiesData);
+      } catch (error) {
+        console.error('Error fetching stories:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStories();
   }, []);
 
-  const { selectedGenre, setSelectedGenre } = useContext(GenreContext); // Lấy genre và setGenre từ Context
+  const { selectedGenre, setSelectedGenre } = useContext(GenreContext);
   const [search, setSearch] = useState("");
 
-  const filteredStories = stories
+  // Xử lý tìm kiếm
+  const handleSearch = async (searchTerm) => {
+    if (!searchTerm.trim()) {
+      setIsSearching(false);
+      setSearchResults([]);
+      return;
+    }
+
+    setIsSearching(true);
+    try {
+      const results = await searchStories(searchTerm);
+      setSearchResults(results);
+    } catch (error) {
+      console.error('Error searching stories:', error);
+      setSearchResults([]);
+    }
+  };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      handleSearch(search);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [search]);
+
+  const filteredStories = (isSearching ? searchResults : stories)
     .filter((story) => {
       if (selectedGenre === "All") return true;
       return story.genre === selectedGenre;
     })
-    .filter((story) => {
-      if (!search) return true;
-      const searchLower = removeDiacritics(search.toLowerCase());
-      const titleLower = removeDiacritics(story.title.toLowerCase());
-      const authorLower = removeDiacritics(story.author.toLowerCase());
-      return (
-        titleLower.includes(searchLower) || authorLower.includes(searchLower)
-      );
-    })
     .sort((a, b) => b.id - a.id);
+
+  if (loading) {
+    return (
+      <Container className="text-center mt-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </Container>
+    );
+  }
 
   return (
     <>
@@ -97,9 +138,8 @@ const StoryList = () => {
             {genres.map((genre, index) => (
               <Button
                 key={index}
-                className={`m-2 shadow-sm genre-btn ${
-                  selectedGenre === genre ? "active" : ""
-                }`}
+                className={`m-2 shadow-sm genre-btn ${selectedGenre === genre ? "active" : ""
+                  }`}
                 onClick={() => setSelectedGenre(genre)}
               >
                 {genre}
@@ -111,8 +151,8 @@ const StoryList = () => {
         <Row className="justify-content-center m-lg-3">
           {filteredStories.length > 0 ? (
             filteredStories.map((story) => (
-              <Col md={2} key={story.id} className="m-2 mb-3">
-                <Card className="card shadow" style={{ width: "200px" }}>
+              <Col lg={3} md={4} sm={6} key={story.id} className="m-2 mb-3">
+                <Card className="card shadow" style={{ width: "100%", maxWidth: "280px" }}>
                   <Card.Img
                     src={story.coverImage}
                     variant="top"
@@ -124,7 +164,7 @@ const StoryList = () => {
                     }}
                   />
                   <Card.Body className="card-body p-3 text-start">
-                    <Card.Title className="text-danger mb-3 opacity-75 title-text">
+                    <Card.Title className="text-primary mb-3 opacity-75 title-text">
                       <strong>{story.title}</strong>
                     </Card.Title>
                     <Card.Text>View: {story.viewCount}</Card.Text>

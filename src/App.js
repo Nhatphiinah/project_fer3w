@@ -16,13 +16,10 @@ import { AuthProvider } from "./context/AuthContext";
 import Signup from "./pages/auth/Signup";
 import Profile from "./pages/Profile";
 import Dashboard from "./pages/admin/Dashboard";
-import { useEffect } from "react";
-import { initializeStories } from "./utils/storyService";
-
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 function App() {
-  useEffect(() => {
-    initializeStories();
-  }, []);
 
   return (
     <div className="App">
@@ -40,6 +37,9 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
 
               <Route path="/dashboard" element={<Dashboard />} />
             </Routes>

@@ -9,16 +9,37 @@ import { useEffect, useState } from "react";
 
 const Home = () => {
   const [stories, setStories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storiesFromLocal = getStories();
-    setStories(storiesFromLocal);
+    const fetchStories = async () => {
+      try {
+        const storiesData = await getStories();
+        setStories(storiesData);
+      } catch (error) {
+        console.error('Error fetching stories:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStories();
   }, []);
 
   const featuredStories = stories
     .sort((a, b) => b.viewCount - a.viewCount)
     .slice(0, 5)
     .filter((story) => story.viewCount > 100);
+
+  if (loading) {
+    return (
+      <Container className="text-center mt-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </Container>
+    );
+  }
 
   return (
     <>
@@ -70,13 +91,13 @@ const Home = () => {
         <Row className="justify-content-center m-lg-3">
           {stories
             .sort((a, b) => b.id - a.id)
-            .slice(0, 5)
+            .slice(0, 8)
             .map((story) => (
-              <Col md={2} key={story.id} className="m-2 mb-3">
+              <Col lg={3} md={4} sm={6} key={story.id} className="m-2 mb-3">
                 <Card
                   key={story.id}
                   className="card shadow"
-                  style={{ width: "200px" }}
+                  style={{ width: "100%", maxWidth: "280px" }}
                 >
                   <Card.Img
                     src={story.coverImage}
@@ -89,7 +110,7 @@ const Home = () => {
                     }}
                   />
                   <Card.Body className="card-body p-3 text-start">
-                    <Card.Title className="text-danger mb-3 opacity-75 title-text">
+                    <Card.Title className="text-primary mb-3 opacity-75 title-text">
                       {<strong>{story.title}</strong>}
                     </Card.Title>
                     <Card.Text>View: {story.viewCount}</Card.Text>

@@ -2,107 +2,57 @@
  * Assignment create by Group 2
  */
 .custom-navbar {
-  background: linear-gradient(
-    90deg,
-    #ff4d4d,
-    #ff8787
-  ) !important; /* Gradient đỏ */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ */
-  padding: 10px 0;
+  background: linear-gradient(135deg, #1e40af, #3b82f6) !important;
+  box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
 }
 
-/* Logo */
 .logo h3 {
-  font-family: "Poppins", sans-serif; /* Font hiện đại */
+  color: #ffffff !important;
   font-weight: 700;
-  color: #fff !important;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Thêm bóng chữ */
-  transition: transform 0.3s ease;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.logo h3:hover {
-  transform: scale(1.05); /* Hiệu ứng phóng to khi hover */
-}
-
-/* Nav links */
 .nav-link-custom {
-  color: #fff !important;
-  font-family: "Roboto", sans-serif;
+  color: #ffffff !important;
   font-weight: 500;
-  padding: 8px 15px !important;
-  border-radius: 5px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-right: 10px; /* Thêm khoảng cách giữa các mục */
+  transition: all 0.3s ease;
+  margin: 0 10px;
 }
 
 .nav-link-custom:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px); /* Hiệu ứng nâng lên khi hover */
-}
-
-/* Dropdown */
-.nav-dropdown-custom .dropdown-toggle {
-  color: #fff !important;
-  font-family: "Roboto", sans-serif;
-  font-weight: 500;
-  padding: 8px 15px !important;
-  border-radius: 5px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.nav-dropdown-custom .dropdown-toggle:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  color: #dbeafe !important;
   transform: translateY(-2px);
 }
 
+.nav-dropdown-custom .dropdown-toggle {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
 .nav-dropdown-custom .dropdown-menu {
-  background-color: #fff;
-  border: none;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Bóng đổ cho dropdown */
-  animation: fadeIn 0.3s ease; /* Hiệu ứng xuất hiện */
 }
 
 .nav-dropdown-custom .dropdown-item {
-  color: #333 !important;
-  font-family: "Roboto", sans-serif;
-  padding: 10px 20px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  color: #1e293b;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
 }
 
 .nav-dropdown-custom .dropdown-item:hover {
-  background-color: #ff4d4d !important;
-  color: #fff !important;
+  background-color: #dbeafe;
+  color: #1e40af;
+  transform: translateX(5px);
 }
 
-/* User dropdown */
-.user-dropdown {
-  display: flex;
-  align-items: center;
-  color: #fff !important;
+.navbar-toggler {
+  border-color: #ffffff !important;
 }
 
-.user-dropdown svg {
-  transition: transform 0.3s ease;
-}
-
-.user-dropdown:hover svg {
-  transform: rotate(360deg); /* Hiệu ứng xoay icon khi hover */
-}
-
-/* Căn chỉnh phần user profile */
-.navbar-nav.ms-auto {
-  margin-right: 20px !important; /* Thêm khoảng cách bên phải để không sát mép */
-}
-
-/* Hiệu ứng fade-in cho dropdown */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25) !important;
 }

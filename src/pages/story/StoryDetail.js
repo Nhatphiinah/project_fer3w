@@ -6,8 +6,7 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { AuthContext } from "../../context/AuthContext";
-import { getStories, updateStories } from "../../utils/storyService.js";
-import commentList from "../../data/comments.json";
+import { getStories } from "../../utils/storyService.js";
 import Comments from "../../components/features/Comments.js";
 
 const StoryDetail = () => {
@@ -17,62 +16,37 @@ const StoryDetail = () => {
 
   const [stories, setStories] = useState([]);
   const [story, setStory] = useState(null);
-  const [viewCount, setViewCount] = useState(0); // Giá trị ban đầu sẽ được set từ localStorage
-  const [commentCount, setCommentCount] = useState(0); // Giá trị ban đầu sẽ được set từ localStorage
+  const [viewCount, setViewCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [comments, setComments] = useState([]);
+  const [commentsLoading, setCommentsLoading] = useState(true);
 
-  // Lấy danh sách truyện và bình luận từ localStorage
-  const fetchData = () => {
-    const storiesFromLocal = getStories();
-    setStories(storiesFromLocal);
+  // Lấy dữ liệu truyện và bình luận từ API
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const storiesData = await getStories();
+      setStories(storiesData);
 
-    const foundStory = storiesFromLocal.find((s) => s.id.toString() === id);
-    if (foundStory) {
-      setStory(foundStory);
-      setViewCount(foundStory.viewCount || 0); // Set giá trị ban đầu cho viewCount
-      setCommentCount(foundStory.commentCount || 0); // Set giá trị ban đầu cho commentCount
-
-      // Tính tổng số bình luận (từ comments.json và localStorage)
-      const storedComments = localStorage.getItem("comments");
-      const localComments = storedComments ? JSON.parse(storedComments) : [];
-      const combinedComments = [...commentList.comments, ...localComments];
-      const uniqueComments = Array.from(
-        new Map(
-          combinedComments.map((comment) => [comment.id, comment])
-        ).values()
-      );
-      const storyComments = uniqueComments.filter(
-        (comment) => comment.storyId && comment.storyId.toString() === id
-      );
-      // Cập nhật commentCount trong localStorage nếu không khớp
-      if (foundStory.commentCount !== storyComments.length) {
-        const updatedStories = storiesFromLocal.map((s) =>
-          s.id.toString() === id
-            ? { ...s, commentCount: storyComments.length }
-            : s
-        );
-        setCommentCount(storyComments.length);
-        updateStories(updatedStories);
+      const foundStory = storiesData.find((s) => s.id.toString() === id);
+      if (foundStory) {
+        setStory(foundStory);
+        setViewCount(foundStory.viewCount || 0);
+        // Comment count sẽ được cập nhật sau khi fetch comments
       }
+    } catch (error) {
+      console.error('Error fetching story data:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
   // Lấy dữ liệu ban đầu
   useEffect(() => {
     fetchData();
-  }, [id]);
-
-  // Đồng bộ dữ liệu khi localStorage thay đổi
-  useEffect(() => {
-    const handleStorageChange = () => {
-      fetchData();
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, [id]);
+  }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Kiểm tra trạng thái yêu thích
   useEffect(() => {
@@ -83,6 +57,31 @@ const StoryDetail = () => {
       setIsFavorite(userFavorites.includes(parseInt(id)));
     }
   }, [id, user]);
+
+  // Fetch comments when story changes
+  useEffect(() => {
+    const fetchComments = async () => {
+      if (!story) return;
+
+      try {
+        setCommentsLoading(true);
+        const response = await fetch(`http://localhost:5000/comments?storyId=${story.id}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch comments');
+        }
+        const commentsData = await response.json();
+        setComments(commentsData);
+        setCommentCount(commentsData.length);
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+        setComments([]);
+      } finally {
+        setCommentsLoading(false);
+      }
+    };
+
+    fetchComments();
+  }, [story]);
 
   const handleFavoriteClick = () => {
     if (!user) {
@@ -116,7 +115,7 @@ const StoryDetail = () => {
       return;
     }
 
-    const sessionKey = `viewed_${id}_${user.username}`; // Thêm username để mỗi user chỉ tăng view 1 lần
+    const sessionKey = `viewed_${id}_${user.username}`;
     const hasViewed = sessionStorage.getItem(sessionKey);
 
     if (!hasViewed) {
@@ -125,24 +124,29 @@ const StoryDetail = () => {
         s.id.toString() === id ? { ...s, viewCount: updatedViewCount } : s
       );
       setStories(updatedStories);
-      updateStories(updatedStories);
       setViewCount(updatedViewCount);
       sessionStorage.setItem(sessionKey, "true");
+
+      // TODO: Implement API call to update view count
+      // updateStoryViewCount(id, updatedViewCount);
     }
 
     navigate(`/stories/read/${id}`);
   };
 
-  // Lấy danh sách bình luận từ comments.json trước, sau đó gộp với localStorage
-  const storedComments = localStorage.getItem("comments");
-  const localComments = storedComments ? JSON.parse(storedComments) : [];
-  const combinedComments = [...commentList.comments, ...localComments];
-  const uniqueComments = Array.from(
-    new Map(combinedComments.map((comment) => [comment.id, comment])).values()
-  );
-  const comments = uniqueComments
-    .filter((comment) => comment.storyId && comment.storyId.toString() === id)
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
+  // Loading state
+  if (loading) {
+    return (
+      <Container className="my-5">
+        <div className="text-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <p className="mt-2">Loading story...</p>
+        </div>
+      </Container>
+    );
+  }
 
   if (!story) {
     return (
@@ -165,7 +169,7 @@ const StoryDetail = () => {
         </Col>
         <Col md={4} className="mt-5 text-start">
           <Card.Body>
-            <Card.Title className="text-danger mb-3 opacity-75">
+            <Card.Title className="text-primary mb-3 opacity-75">
               <h1>{story.title}</h1>
             </Card.Title>
             <Card.Text>
@@ -200,7 +204,7 @@ const StoryDetail = () => {
                 Read Now
               </Button>
               <Button
-                variant="outline-danger"
+                variant="outline-primary"
                 className="mt-2"
                 onClick={handleFavoriteClick}
                 style={{
@@ -209,7 +213,7 @@ const StoryDetail = () => {
                   padding: "5px",
                 }}
               >
-                <FaHeart size={24} color={isFavorite ? "red" : "gray"} />
+                <FaHeart size={24} color={isFavorite ? "#3b82f6" : "gray"} />
               </Button>
             </div>
           </Card.Body>
@@ -217,14 +221,23 @@ const StoryDetail = () => {
       </Row>
       <Row>
         <Col className="mt-4">
-          <h3>Comment</h3>
+          <h3>Comments</h3>
+          {commentsLoading ? (
+            <div className="text-center my-3">
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading comments...</span>
+              </div>
+              <p className="mt-2">Loading comments...</p>
+            </div>
+          ) : (
+            <Comments
+              commentList={comments}
+              storyId={parseInt(id)}
+              setCommentCount={setCommentCount}
+            />
+          )}
         </Col>
       </Row>
-      <Comments
-        commentList={comments}
-        storyId={parseInt(id)}
-        setCommentCount={setCommentCount}
-      />
     </Container>
   );
 };

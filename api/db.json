@@ -1,0 +1,296 @@
+{
+  "stories": [
+    {
+      "id": "1",
+      "title": "14 Ngày Đẫm Máu aaaaa",
+      "author": "Jeremy Bates & Đông Thị Tú Linh (dịch)",
+      "genre": "Horror",
+      "description": "Một câu chuyện kinh dị đầy ám ảnh về những sự kiện bí ẩn xảy ra trong 14 ngày.",
+      "coverImage": "/assets/img/14-ngay-dam-mau-jeremy-bates-&-dong-thi-tu-linh-(dich).jpg",
+      "pdfUrl": "/pdf/14-ngay-dam-mau.pdf",
+      "viewCount": 1250,
+      "rating": 4.5,
+      "publishedDate": "2023-01-15"
+    },
+    {
+      "id": "2",
+      "title": "Ba Đô – Tình Yêu Ngày Tận Thế",
+      "author": "Katja Kettu & Bùi Việt Hoa (dịch)",
+      "genre": "Romance",
+      "description": "Câu chuyện tình yêu lãng mạn giữa những con người trong ngày tận thế.",
+      "coverImage": "/assets/img/ba-do-–-tinh-yeu-ngay-tan-the-katja-kettu-&-bui-viet-hoa-(dich).jpg",
+      "pdfUrl": "/pdf/ba-do-tinh-yeu-ngay-tan-the.pdf",
+      "viewCount": 890,
+      "rating": 4.2,
+      "publishedDate": "2023-02-20"
+    },
+    {
+      "id": "3",
+      "title": "Đám Mây Chết",
+      "author": "Andrew Lane & Xuân Hương (dịch)",
+      "genre": "Science Fiction (Sci-Fi)",
+      "description": "Khoa học viễn tưởng về một đám mây bí ẩn đe dọa sự sống trên Trái Đất.",
+      "coverImage": "/assets/img/dam-may-chet-andrew-lane-&-xuan-huong-(dich).jpg",
+      "pdfUrl": "/pdf/dam-may-chet.pdf",
+      "viewCount": 1100,
+      "rating": 4.3,
+      "publishedDate": "2023-03-10"
+    },
+    {
+      "id": "4",
+      "title": "Đầu Xuân Tươi Sáng - Cô Nương Đừng Khóc",
+      "author": "Cô Nương Đừng Khóc",
+      "genre": "Romance",
+      "description": "Truyện ngôn tình ngọt ngào về tình yêu tuổi trẻ.",
+      "coverImage": "/assets/img/dau-xuan-tuoi-sang-co-nuong-dung-khoc.jpg",
+      "pdfUrl": "/pdf/Đầu Xuân Tươi Sáng - Cô Nương Đừng Khóc.pdf",
+      "viewCount": 2100,
+      "rating": 4.7,
+      "publishedDate": "2023-01-05"
+    },
+    {
+      "id": "5",
+      "title": "Địa Cầu Tận Thế",
+      "author": "Tuyết Li",
+      "genre": "Science Fiction (Sci-Fi)",
+      "description": "Viễn cảnh về sự kết thúc của thế giới và cuộc chiến sinh tồn.",
+      "coverImage": "/assets/img/dia-cau-tan-the-tuyet-li.jpg",
+      "pdfUrl": "/pdf/dia-cau-tan-the.pdf",
+      "viewCount": 950,
+      "rating": 4.1,
+      "publishedDate": "2023-02-15"
+    },
+    {
+      "id": "6",
+      "title": "Lục Lạc Nhỏ",
+      "author": "Paradoxical",
+      "genre": "Comedy",
+      "description": "Truyện hài hước về những tình huống dở khóc dở cười.",
+      "coverImage": "/assets/img/luc-lac-nho-paradoxical.jpg",
+      "pdfUrl": "/pdf/luc-lac-nho.pdf",
+      "viewCount": 750,
+      "rating": 4,
+      "publishedDate": "2023-03-25"
+    },
+    {
+      "id": "7",
+      "title": "Những Vụ Án Kỳ Bí",
+      "author": "Điểm Bắc Lão Cửu",
+      "genre": "Detective / Mystery",
+      "description": "Truyện trinh thám với những vụ án đầy bí ẩn và thách thức.",
+      "coverImage": "/assets/img/nhung-vu-an-ky-bi-diem-bac-lao-cuu.jpg",
+      "pdfUrl": "/pdf/nhung-vu-an-ki-bi.pdf",
+      "viewCount": 1350,
+      "rating": 4.6,
+      "publishedDate": "2023-01-30"
+    },
+    {
+      "id": "8",
+      "title": "Samurai Trẻ Tuổi (Bộ 8 Tập)",
+      "author": "Chris Bradford & Hoàng Hương Trang (dịch)",
+      "genre": "Action",
+      "description": "Bộ truyện hành động về hành trình trở thành samurai của một cậu bé.",
+      "coverImage": "/assets/img/samurai-tre-tuoi-(bo-8-tap)-chris-bradford-&-hoang-huong-trang-(dich).jpg",
+      "pdfUrl": "/pdf/samurai-tre-tuoi.pdf",
+      "viewCount": 1800,
+      "rating": 4.8,
+      "publishedDate": "2023-02-10"
+    },
+    {
+      "id": "9",
+      "title": "Thế Giới Atlantis",
+      "author": "A. G. Riddle & Xuân Yến (dịch)",
+      "genre": "Science Fiction (Sci-Fi)",
+      "description": "Khám phá thế giới Atlantis huyền bí và những bí mật cổ xưa.",
+      "coverImage": "/assets/img/the-gioi-atlantis-a.-g.-riddle-&-xuan-yen-(dich).jpg",
+      "pdfUrl": "/pdf/the-gioi-atlantis.pdf",
+      "viewCount": 1200,
+      "rating": 4.4,
+      "publishedDate": "2023-03-15"
+    },
+    {
+      "id": "10",
+      "title": "Từ Điển Tiếng Em",
+      "author": "Tác giả ẩn danh",
+      "genre": "Romance",
+      "description": "Truyện tình yêu ngọt ngào về việc học ngôn ngữ tình yêu.",
+      "coverImage": "/assets/img/tu-dien-tieng-em.jpg",
+      "pdfUrl": "/pdf/tu-dien-tieng-em.pdf",
+      "viewCount": 1600,
+      "rating": 4.6,
+      "publishedDate": "2023-01-20"
+    },
+    {
+      "id": "11",
+      "title": "Vỏ Bọc Hoàn Hảo",
+      "author": "Lisa Gardner & Quách Cẩm Phương (dịch)",
+      "genre": "Detective / Mystery",
+      "description": "Truyện trinh thám về những vụ án phức tạp và đầy bất ngờ.",
+      "coverImage": "/assets/img/vo-boc-hoan-hao-lisa-gardner-&-quach-cam-phuong-(dich).jpg",
+      "pdfUrl": "/pdf/vo-boc-hoang-hao.pdf",
+      "viewCount": 1400,
+      "rating": 4.5,
+      "publishedDate": "2023-02-25"
+    },
+    {
+      "id": "12",
+      "title": "Warcross - Thợ Săn Tiền Thưởng",
+      "author": "Marie Lu & Nhóm Townh (dịch)",
+      "genre": "Action",
+      "description": "Truyện hành động về thế giới game ảo và những cuộc phiêu lưu.",
+      "coverImage": "/assets/img/warcross-tho-san-tien-thuong-marie-lu-&-nhom-townh-(dich).jpg",
+      "pdfUrl": "/pdf/warcross-tho-san-tien-thuong.pdf",
+      "viewCount": 1700,
+      "rating": 4.7,
+      "publishedDate": "2023-03-20"
+    },
+    {
+      "id": "0adb",
+      "title": "Nhat Phii",
+      "author": "Tuyết Li aaaa",
+      "genre": "Science Fiction (Sci-Fi)",
+      "coverImage": "/assets/img/14-ngay-dam-mau-jeremy-bates-&-dong-thi-tu-linh-(dich).jpg",
+      "pdfUrl": "/pdf/ba-do-tinh-yeu-ngay-tan-the.pdf",
+      "viewCount": 0,
+      "commentCount": 0
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "email": "admin@example.com",
+      "password": "admin123",
+      "role": "admin",
+      "avatar": "https://via.placeholder.com/150/4CAF50/FFFFFF?text=A",
+      "createdAt": "2023-01-01"
+    },
+    {
+      "id": "2",
+      "username": "user1",
+      "email": "user1@example.com",
+      "password": "user123",
+      "role": "user",
+      "avatar": "https://via.placeholder.com/150/2196F3/FFFFFF?text=U",
+      "createdAt": "2023-01-15"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "storyId": 1,
+      "userId": 2,
+      "username": "user1",
+      "content": "Truyện rất hay và hấp dẫn! Tôi thích cách tác giả xây dựng cốt truyện.",
+      "rating": 5,
+      "createdAt": "2023-12-01T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "storyId": 1,
+      "userId": 1,
+      "username": "admin",
+      "content": "Tác phẩm kinh dị xuất sắc! Những tình tiết bất ngờ làm tôi rất thích thú.",
+      "rating": 4,
+      "createdAt": "2023-12-02T14:30:00Z"
+    },
+    {
+      "id": "3",
+      "storyId": 2,
+      "userId": 2,
+      "username": "user1",
+      "content": "Truyện tình yêu rất lãng mạn và cảm động. Tôi đã khóc khi đọc.",
+      "rating": 5,
+      "createdAt": "2023-12-03T09:15:00Z"
+    },
+    {
+      "id": "4",
+      "storyId": 3,
+      "userId": 1,
+      "username": "admin",
+      "content": "Khoa học viễn tưởng rất thú vị. Tác giả có trí tưởng tượng phong phú.",
+      "rating": 4,
+      "createdAt": "2023-12-04T16:45:00Z"
+    },
+    {
+      "id": "5",
+      "storyId": 4,
+      "userId": 2,
+      "username": "user1",
+      "content": "Truyện ngôn tình ngọt ngào, phù hợp với tuổi trẻ.",
+      "rating": 5,
+      "createdAt": "2023-12-05T11:20:00Z"
+    },
+    {
+      "id": "6",
+      "storyId": 5,
+      "userId": 1,
+      "username": "admin",
+      "content": "Cốt truyện hấp dẫn, diễn biến bất ngờ. Rất đáng đọc!",
+      "rating": 6,
+      "createdAt": "2023-12-06T13:10:00Z"
+    },
+    {
+      "id": "7",
+      "storyId": 6,
+      "userId": 2,
+      "username": "user1",
+      "content": "Truyện hài hước, giúp tôi giải tỏa căng thẳng sau giờ làm việc.",
+      "rating": 5,
+      "createdAt": "2023-12-07T15:30:00Z"
+    },
+    {
+      "id": "8",
+      "storyId": 7,
+      "userId": 1,
+      "username": "admin",
+      "content": "Truyện trinh thám logic, tôi thích cách tác giả đặt ra các manh mối.",
+      "rating": 5,
+      "createdAt": "2023-12-08T10:45:00Z"
+    },
+    {
+      "id": "1756084103321",
+      "storyId": 12,
+      "userId": 2,
+      "username": "user1",
+      "content": "aaa",
+      "rating": 5,
+      "createdAt": "2025-08-25T01:08:23.321Z"
+    },
+    {
+      "id": 1756086653212,
+      "storyId": 11,
+      "userId": "2",
+      "username": "user1",
+      "content": "Hay\n",
+      "rating": 5,
+      "createdAt": "2025-08-25T01:50:53.212Z"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "1",
+      "name": "Nguyễn Văn A",
+      "email": "nguyenvana@example.com",
+      "subject": "Hỏi về truyện mới",
+      "message": "Tôi muốn biết khi nào có truyện mới được thêm vào?",
+      "createdAt": "2023-12-01T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "name": "Trần Thị B",
+      "email": "tranthib@example.com",
+      "subject": "Góp ý về website",
+      "message": "Website rất đẹp và dễ sử dụng. Tôi thích giao diện này.",
+      "createdAt": "2023-12-02T14:30:00Z"
+    },
+    {
+      "id": "44e7",
+      "name": "a",
+      "email": "service2@gmail.com",
+      "subject": "âs",
+      "message": "aaaaaa",
+      "createdAt": "2025-08-25T01:34:11.821Z"
+    }
+  ]
+}

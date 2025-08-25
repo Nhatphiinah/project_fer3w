@@ -4,13 +4,31 @@
 import { useContext, useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FaTrash } from "react-icons/fa"; // Thêm biểu tượng xóa và sửa
+import { FaTrash } from "react-icons/fa";
 import { AuthContext } from "../context/AuthContext";
-import storyList from "../data/stories.json";
+import { getStories } from "../utils/storyService.js";
 
 const Profile = () => {
-  const { user } = useContext(AuthContext); // Lấy thông tin người dùng từ AuthContext
-  const [favorites, setFavorites] = useState([]); // Danh sách truyện yêu thích
+  const { user } = useContext(AuthContext);
+  const [favorites, setFavorites] = useState([]);
+  const [stories, setStories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Lấy danh sách truyện từ API
+  useEffect(() => {
+    const fetchStories = async () => {
+      try {
+        const storiesData = await getStories();
+        setStories(storiesData);
+      } catch (error) {
+        console.error('Error fetching stories:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStories();
+  }, []);
 
   // Lấy danh sách truyện yêu thích từ localStorage khi trang được tải
   useEffect(() => {
@@ -38,18 +56,29 @@ const Profile = () => {
     setFavorites(updatedUserFavorites);
   };
 
-  // Lấy thông tin truyện từ storyList dựa trên storyId
+  // Lấy thông tin truyện từ stories state dựa trên storyId
   const getStoryById = (storyId) => {
-    return storyList.stories.find((story) => story.id === storyId);
+    return stories.find((story) => story.id === storyId);
   };
 
   if (!user) {
     return (
       <Container className="my-5 text-center">
-        <h3>PLease Login to view your profile</h3>
+        <h3>Please Login to view your profile</h3>
         <Button as={Link} to="/login" variant="primary">
           Đăng nhập
         </Button>
+      </Container>
+    );
+  }
+
+  if (loading) {
+    return (
+      <Container className="my-5 text-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p className="mt-2">Loading profile...</p>
       </Container>
     );
   }
