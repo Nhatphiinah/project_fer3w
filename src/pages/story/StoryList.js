@@ -1,5 +1,5 @@
 /*
- * Assignment create by Group 2
+ * Assignment create by Group 1
  */
 import {
   Col,
@@ -96,7 +96,7 @@ const StoryList = () => {
       if (selectedGenre === "All") return true;
       return story.genre === selectedGenre;
     })
-    .sort((a, b) => b.id - a.id);
+    .sort((a, b) => a.title.localeCompare(b.title));
 
   if (loading) {
     return (

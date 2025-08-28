@@ -20,7 +20,7 @@
       "description": "Câu chuyện tình yêu lãng mạn giữa những con người trong ngày tận thế.",
       "coverImage": "/assets/img/ba-do-–-tinh-yeu-ngay-tan-the-katja-kettu-&-bui-viet-hoa-(dich).jpg",
       "pdfUrl": "/pdf/ba-do-tinh-yeu-ngay-tan-the.pdf",
-      "viewCount": 890,
+      "viewCount": 891,
       "rating": 4.2,
       "publishedDate": "2023-02-20"
     },
@@ -44,7 +44,7 @@
       "description": "Truyện ngôn tình ngọt ngào về tình yêu tuổi trẻ.",
       "coverImage": "/assets/img/dau-xuan-tuoi-sang-co-nuong-dung-khoc.jpg",
       "pdfUrl": "/pdf/Đầu Xuân Tươi Sáng - Cô Nương Đừng Khóc.pdf",
-      "viewCount": 2100,
+      "viewCount": 2101,
       "rating": 4.7,
       "publishedDate": "2023-01-05"
     },
@@ -80,7 +80,7 @@
       "description": "Truyện trinh thám với những vụ án đầy bí ẩn và thách thức.",
       "coverImage": "/assets/img/nhung-vu-an-ky-bi-diem-bac-lao-cuu.jpg",
       "pdfUrl": "/pdf/nhung-vu-an-ki-bi.pdf",
-      "viewCount": 1350,
+      "viewCount": 1351,
       "rating": 4.6,
       "publishedDate": "2023-01-30"
     },
@@ -92,7 +92,7 @@
       "description": "Bộ truyện hành động về hành trình trở thành samurai của một cậu bé.",
       "coverImage": "/assets/img/samurai-tre-tuoi-(bo-8-tap)-chris-bradford-&-hoang-huong-trang-(dich).jpg",
       "pdfUrl": "/pdf/samurai-tre-tuoi.pdf",
-      "viewCount": 1800,
+      "viewCount": 1801,
       "rating": 4.8,
       "publishedDate": "2023-02-10"
     },
@@ -104,7 +104,7 @@
       "description": "Khám phá thế giới Atlantis huyền bí và những bí mật cổ xưa.",
       "coverImage": "/assets/img/the-gioi-atlantis-a.-g.-riddle-&-xuan-yen-(dich).jpg",
       "pdfUrl": "/pdf/the-gioi-atlantis.pdf",
-      "viewCount": 1200,
+      "viewCount": 1201,
       "rating": 4.4,
       "publishedDate": "2023-03-15"
     },
@@ -116,7 +116,7 @@
       "description": "Truyện tình yêu ngọt ngào về việc học ngôn ngữ tình yêu.",
       "coverImage": "/assets/img/tu-dien-tieng-em.jpg",
       "pdfUrl": "/pdf/tu-dien-tieng-em.pdf",
-      "viewCount": 1600,
+      "viewCount": 1601,
       "rating": 4.6,
       "publishedDate": "2023-01-20"
     },
@@ -151,7 +151,7 @@
       "genre": "Science Fiction (Sci-Fi)",
       "coverImage": "/assets/img/14-ngay-dam-mau-jeremy-bates-&-dong-thi-tu-linh-(dich).jpg",
       "pdfUrl": "/pdf/ba-do-tinh-yeu-ngay-tan-the.pdf",
-      "viewCount": 0,
+      "viewCount": 1,
       "commentCount": 0
     }
   ],
@@ -267,13 +267,40 @@
       "createdAt": "2025-08-25T01:08:23.321Z"
     },
     {
-      "id": 1756086653212,
+      "id": "1756086653212",
       "storyId": 11,
       "userId": "2",
       "username": "user1",
       "content": "Hay\n",
       "rating": 5,
       "createdAt": "2025-08-25T01:50:53.212Z"
+    },
+    {
+      "id": "1756087332954",
+      "storyId": 12,
+      "userId": "fc05",
+      "username": "nhatphinah",
+      "content": "sa",
+      "rating": 5,
+      "createdAt": "2025-08-25T02:02:12.954Z"
+    },
+    {
+      "id": 1756341278860,
+      "storyId": 2,
+      "userId": "2",
+      "username": "user1",
+      "content": "á",
+      "rating": 5,
+      "createdAt": "2025-08-28T00:34:38.860Z"
+    },
+    {
+      "id": 1756341288876,
+      "storyId": 2,
+      "userId": "2",
+      "username": "user1",
+      "content": "qqq",
+      "rating": 5,
+      "createdAt": "2025-08-28T00:34:48.876Z"
     }
   ],
   "contacts": [
@@ -300,6 +327,14 @@
       "subject": "âs",
       "message": "aaaaaa",
       "createdAt": "2025-08-25T01:34:11.821Z"
+    },
+    {
+      "id": "a795",
+      "name": "Nguyễn Vân Nhật Phi",
+      "email": "phinguyen0905@gmail.com",
+      "subject": "MAS291_FA24_RE_349112",
+      "message": "aaaaaaaa",
+      "createdAt": "2025-08-25T02:03:13.146Z"
     }
   ]
 }

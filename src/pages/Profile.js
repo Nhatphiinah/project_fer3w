@@ -1,5 +1,5 @@
 /*
- * Assignment create by Group 2
+ * Assignment create by Group 1
  */
 import { useContext, useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, ListGroup } from "react-bootstrap";
@@ -58,7 +58,8 @@ const Profile = () => {
 
   // Lấy thông tin truyện từ stories state dựa trên storyId
   const getStoryById = (storyId) => {
-    return stories.find((story) => story.id === storyId);
+    // So sánh kiểu dữ liệu đồng nhất để tránh lỗi không hiển thị
+    return stories.find((story) => String(story.id) === String(storyId));
   };
 
   if (!user) {

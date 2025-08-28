@@ -1,5 +1,5 @@
 /*
- * Assignment create by Group 2
+ * Assignment create by Group 1
  */
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -138,6 +138,10 @@ const StoryReader = () => {
           <h2 className="text-danger opacity-75">
             {story.title} - {story.author}
           </h2>
+          <h6 className="text-muted">
+            <strong>View: </strong>
+            {story.viewCount}
+          </h6>
         </Col>
       </Row>
       <Row className="justify-content-center">

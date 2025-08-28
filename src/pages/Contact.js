@@ -1,5 +1,5 @@
 /*
- * Assignment create by Group 2
+ * Assignment create by Group 1
  */
 import { Container, Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
 import { useState } from "react";

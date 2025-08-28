@@ -1,5 +1,5 @@
 /*
- * Assignment create by Group 2
+ * Assignment create by Group 1
  */
 import { Container, Row, Col, Card } from "react-bootstrap";
 import "../styles/pages/privacy.css";

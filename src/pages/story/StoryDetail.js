@@ -1,5 +1,5 @@
 /*
- * Assignment create by Group 2
+ * Assignment create by Group 1
  */
 import { useState, useEffect, useContext } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
@@ -22,6 +22,7 @@ const StoryDetail = () => {
   const [loading, setLoading] = useState(true);
   const [comments, setComments] = useState([]);
   const [commentsLoading, setCommentsLoading] = useState(true);
+  const [readNowLoading, setReadNowLoading] = useState(false);
 
   // Lấy dữ liệu truyện và bình luận từ API
   const fetchData = async () => {
@@ -108,13 +109,14 @@ const StoryDetail = () => {
   };
 
   // Tăng viewCount khi nhấn "Read Now" (chỉ khi user đã đăng nhập)
-  const handleReadNowClick = () => {
+  const handleReadNowClick = async () => {
     if (!user) {
       alert("Please login to read this story!");
       navigate("/login");
       return;
     }
 
+    setReadNowLoading(true);
     const sessionKey = `viewed_${id}_${user.username}`;
     const hasViewed = sessionStorage.getItem(sessionKey);
 
@@ -125,13 +127,30 @@ const StoryDetail = () => {
       );
       setStories(updatedStories);
       setViewCount(updatedViewCount);
+      setStory((prev) => prev ? { ...prev, viewCount: updatedViewCount } : prev);
       sessionStorage.setItem(sessionKey, "true");
 
-      // TODO: Implement API call to update view count
-      // updateStoryViewCount(id, updatedViewCount);
+      // Gọi API cập nhật viewCount vào DB (JSON Server) và kiểm tra response
+      try {
+        const response = await fetch(`http://localhost:5000/stories/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ viewCount: updatedViewCount })
+        });
+        if (response.ok) {
+          navigate(`/stories/read/${id}`);
+        } else {
+          alert("Lỗi cập nhật view, hãy thử lại!");
+        }
+      } catch (error) {
+        alert("Lỗi kết nối server, hãy thử lại!");
+      } finally {
+        setReadNowLoading(false);
+      }
+    } else {
+      setReadNowLoading(false);
+      navigate(`/stories/read/${id}`);
     }
-
-    navigate(`/stories/read/${id}`);
   };
 
   // Loading state
@@ -200,8 +219,9 @@ const StoryDetail = () => {
               <Button
                 className="mt-2 read-now-btn me-2"
                 onClick={handleReadNowClick}
+                disabled={readNowLoading}
               >
-                Read Now
+                {readNowLoading ? "Đang cập nhật..." : "Read Now"}
               </Button>
               <Button
                 variant="outline-primary"

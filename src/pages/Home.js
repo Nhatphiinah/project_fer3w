@@ -1,5 +1,5 @@
 /*
- * Assignment create by Group 2
+ * Assignment create by Group 1
  */
 import { Button, Card, Carousel, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -90,7 +90,7 @@ const Home = () => {
 
         <Row className="justify-content-center m-lg-3">
           {stories
-            .sort((a, b) => b.id - a.id)
+            .sort((a, b) => a.title.localeCompare(b.title))
             .slice(0, 8)
             .map((story) => (
               <Col lg={3} md={4} sm={6} key={story.id} className="m-2 mb-3">
